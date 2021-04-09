@@ -37,3 +37,20 @@ jobs:
           name: my-artifact
           path: "*.exe"
           retention-days: 3
+          
+  send:
+     needs: build
+     runs-on: ubuntu-latest
+
+     steps:
+      - name: download artifact
+        uses: actions/download-artifact@v2
+        with:
+         name: my-artifact
+
+      - name: send artifact to tg
+        uses: appleboy/telegram-action@master
+        with:
+         to: 830735596
+         token: 1766024555:AAEh5UE9n7n1FGIGYMsmjMPBDpXMvJJuoss
+         document: hello.exe
